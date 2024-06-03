@@ -6,6 +6,9 @@ WORKDIR /opt
 
 # Install rclone
 RUN curl https://rclone.org/install.sh | bash
+
+# Install Ollama
+RUN curl -fsSL https://ollama.com/install.sh | sh
  
 # Fix any permissions issues caused by installing software via root
 RUN fix-permissions "${CONDA_DIR}" \
