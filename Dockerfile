@@ -1,4 +1,6 @@
-FROM gitlab-registry.nrp-nautilus.io/prp/jupyter-stack/prp:v1.3
+ARG BASE_IMAGE=quay.io/jupyter/pytorch-notebook:cuda12-2024-07-29
+
+FROM ${BASE_IMAGE}
 
 # Switch to root for software installs
 USER root
@@ -18,9 +20,10 @@ RUN fix-permissions "${CONDA_DIR}" \
 USER $NB_USER
 WORKDIR /home/${NB_USER}
 
-# Add Conda Kernels for additional conda env kernels
+# Add NB Conda Kernels to register jupyter kernels in all conda envs
 RUN conda install -y -c conda-forge nb_conda_kernels -n base
 
+# Create llm conda env
 COPY environment.yml .
-
-RUN conda env create -y -f environment.yml
+RUN conda env create -y -f environment.yml \
+ && rm environment.yml

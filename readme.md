@@ -1,6 +1,7 @@
 # Large Language Model Notebook
+Jupyter Notebook container image for running and fine-tuning Large Language Models
 
-This Jupyter Notebook image contains the following software in addition to its base image:
+## Software Included
 - rclone
 - bitsandbytes
 - transformers
@@ -13,4 +14,4 @@ This Jupyter Notebook image contains the following software in addition to its b
 - PyAudio
 - portaudio
 
-This image is based upon the [National Research Platform's Stack PRP image](https://gitlab.nrp-nautilus.io/prp/jupyter-stack/-/tree/prp/images/prp)
+This image is based upon the [Jupyter Stack PyTorch image](https://github.com/jupyter/docker-stacks/tree/main/images/pytorch-notebook)
