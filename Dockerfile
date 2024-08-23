@@ -24,6 +24,8 @@ WORKDIR /home/${NB_USER}
 RUN conda install -y -c conda-forge nb_conda_kernels -n base
 
 # Create llm conda env
-COPY environment.yml .
-RUN conda env create -y -f environment.yml \
- && rm environment.yml
+COPY environment-llm.yaml .
+RUN conda env create -y -f environment-llm.yaml \
+ && rm environment-llm.yaml
+
+# RUN conda install -y -n llm -c nvidia -c conda-forge cuda-nvcc deepspeed
