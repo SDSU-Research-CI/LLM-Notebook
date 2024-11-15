@@ -3,15 +3,27 @@ Jupyter Notebook container image for running and fine-tuning Large Language Mode
 
 ## Software Included
 - rclone
+- FastChat
+- Ollama
+- VS Code Server
+- Jupyter AI
 - bitsandbytes
 - transformers
 - peft
 - accelerate
 - trl
-- FastChat
-- Ollama
+- ollama-python
 - openai
-- PyAudio
+- pyaudio
 - portaudio
+- cuda-nvcc
+- deepspeed
+- langchain
+- huggingface_hub
+- auto_gptq
+- autoawq
+- xformers
+- dask-kubernetes
+- chromadb
 
 This image is based upon the [Jupyter Stack PyTorch image](https://github.com/jupyter/docker-stacks/tree/main/images/pytorch-notebook)

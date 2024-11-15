@@ -6,11 +6,10 @@ FROM ${BASE_IMAGE}
 USER root
 WORKDIR /opt
 
-# Install rclone
-RUN curl https://rclone.org/install.sh | bash
-
-# Install Ollama
-RUN curl -fsSL https://ollama.com/install.sh | sh
+# Install rclone, Ollama and VS Code Server
+RUN curl https://rclone.org/install.sh | bash \
+ && curl -fsSL https://ollama.com/install.sh | sh \
+ && curl -fsSL https://code-server.dev/install.sh | sh
  
 # Fix any permissions issues caused by installing software via root
 RUN fix-permissions "${CONDA_DIR}" \
@@ -20,12 +19,29 @@ RUN fix-permissions "${CONDA_DIR}" \
 USER $NB_USER
 WORKDIR /home/${NB_USER}
 
-# Add NB Conda Kernels to register jupyter kernels in all conda envs
-RUN conda install -y -c conda-forge nb_conda_kernels -n base
+# Add LLM packages
+RUN mamba install -y -n base \
+    bitsandbytes \
+    transformers \
+    peft \
+    accelerate \
+    trl \
+    ollama-python \
+    openai \
+    pyaudio \
+    portaudio \
+    cuda-nvcc \
+    deepspeed \
+    langchain \
+    huggingface_hub \
+    auto_gptq \
+    autoawq \
+    xformers \
+    dask-kubernetes \
+    chromadb
 
-# Create llm conda env
-COPY environment-llm.yaml .
-RUN conda env create -y -f environment-llm.yaml \
- && rm environment-llm.yaml
-
-# RUN conda install -y -n llm -c nvidia -c conda-forge cuda-nvcc deepspeed
+# Install VS Code Server proxy, FastChat, vLLM
+RUN pip install \
+    jupyter-codeserver-proxy \
+    fschat \
+    jupyter-ai[all]
