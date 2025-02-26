@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=quay.io/jupyter/pytorch-notebook:cuda12-2024-07-29
+ARG BASE_IMAGE=quay.io/jupyter/pytorch-notebook:cuda12-pytorch-2.6.0
 
 FROM ${BASE_IMAGE}
 
@@ -21,22 +21,12 @@ WORKDIR /home/${NB_USER}
 
 # Add LLM packages
 RUN mamba install -y -n base \
-    bitsandbytes \
-    transformers \
-    peft \
-    accelerate \
-    trl \
     ollama-python \
     openai \
     pyaudio \
     portaudio \
     cuda-nvcc \
-    deepspeed \
-    langchain \
     huggingface_hub \
-    auto_gptq \
-    autoawq \
-    xformers \
     dask-kubernetes \
     chromadb
 
@@ -45,3 +35,15 @@ RUN pip install \
     jupyter-codeserver-proxy \
     fschat \
     jupyter-ai[all]
+
+# Install troublemakers
+RUN pip install transformers \
+bitsandbytes \
+accelerate \
+langchain \
+xformers \
+peft \
+gptqmodel \
+autoawq \
+trl \
+deepspeed

@@ -20,7 +20,7 @@ Jupyter Notebook container image for running and fine-tuning Large Language Mode
 - deepspeed
 - langchain
 - huggingface_hub
-- auto_gptq
+- gptqmodel
 - autoawq
 - xformers
 - dask-kubernetes
